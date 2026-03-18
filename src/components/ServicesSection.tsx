@@ -1,14 +1,8 @@
-import { FiServer, FiGlobe, FiLayout, FiLink, FiZap, FiBox } from 'react-icons/fi';
+import { FiServer, FiGlobe, FiLayout, FiZap, FiBox } from 'react-icons/fi';
+
+import { LuBot } from 'react-icons/lu';
 
 const services = [
-  {
-    icon: <FiServer size={32} />,
-    title: 'Scalable Backend Development',
-    description:
-      'Production-grade backend systems using Node.js, Express, and Go. I design APIs and services built to handle thousands of concurrent users with high availability.',
-    tags: ['Node.js', 'Express', 'Go', 'PostgreSQL', 'Redis'],
-    gradient: 'from-cyan-500 to-blue-600',
-  },
   {
     icon: <FiGlobe size={32} />,
     title: 'Full-Stack Product Development',
@@ -18,6 +12,15 @@ const services = [
     gradient: 'from-violet-500 to-purple-600',
   },
   {
+    icon: <FiServer size={32} />,
+    title: 'Scalable Backend Development',
+    description:
+      'Production-grade backend systems using Node.js, Express, and Go. I design APIs and services built to handle thousands of concurrent users with high availability.',
+    tags: ['Node.js', 'Express', 'Go', 'PostgreSQL', 'Redis'],
+    gradient: 'from-cyan-500 to-blue-600',
+  },
+
+  {
     icon: <FiLayout size={32} />,
     title: 'System Architecture & Design',
     description:
@@ -26,11 +29,11 @@ const services = [
     gradient: 'from-emerald-500 to-teal-600',
   },
   {
-    icon: <FiLink size={32} />,
-    title: 'API Design & Integration',
+    icon: <LuBot size={32} />,
+    title: 'AI Services and Agents',
     description:
-      'Crafting well-documented RESTful APIs and integrating third-party services. Security-first design with 99.9% uptime SLAs.',
-    tags: ['REST APIs', 'WebHooks', 'SSR/SSG', 'OAuth'],
+      'Building intelligent AI agents and integrating AI services into your applications. From custom chatbots to automated workflows — I help you leverage the power of AI.',
+    tags: ['AI', 'Agents', 'LLMs', 'RAG'],
     gradient: 'from-orange-500 to-rose-500',
   },
   {
@@ -58,7 +61,8 @@ const ServicesSection = () => (
         What I Can Build For You
       </h2>
       <p className='text-center text-[var(--gray-700)] text-lg mb-12 max-w-2xl mx-auto'>
-        I partner with startups and teams to design and ship end-to-end scalable products — from MVP to production.
+        I partner with startups and teams to design and ship end-to-end scalable
+        products — from MVP to production.
       </p>
 
       <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -68,12 +72,18 @@ const ServicesSection = () => (
             className='group bg-[var(--background)] rounded-2xl p-6 border border-[var(--gray-200)] shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col'
           >
             {/* Icon */}
-            <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} text-white mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+            <div
+              className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} text-white mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+            >
               {service.icon}
             </div>
 
-            <h3 className='text-xl font-bold mb-3 text-[var(--foreground)]'>{service.title}</h3>
-            <p className='text-[var(--gray-700)] text-sm leading-relaxed mb-5 flex-1'>{service.description}</p>
+            <h3 className='text-xl font-bold mb-3 text-[var(--foreground)]'>
+              {service.title}
+            </h3>
+            <p className='text-[var(--gray-700)] text-sm leading-relaxed mb-5 flex-1'>
+              {service.description}
+            </p>
 
             {/* Tags */}
             <div className='flex flex-wrap gap-2 mt-auto'>
@@ -92,7 +102,9 @@ const ServicesSection = () => (
 
       {/* CTA */}
       <div className='text-center mt-14'>
-        <p className='text-[var(--gray-700)] text-lg mb-5'>Have a project in mind?</p>
+        <p className='text-[var(--gray-700)] text-lg mb-5'>
+          Have a project in mind?
+        </p>
         <a
           href='#contact'
           className='inline-block px-10 py-4 rounded-full bg-gradient-to-r from-[var(--primary)] to-blue-600 text-white font-bold text-lg shadow-xl hover:scale-105 transition-all duration-300'

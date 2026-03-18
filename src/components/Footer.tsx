@@ -34,7 +34,8 @@ const Footer = () => (
         © {new Date().getFullYear()} Shivansh Tiwari. All rights reserved.
       </p>
       <p className='text-xs text-[var(--gray-700)]'>
-        Crafted with <FiCoffee className='inline-block text-[var(--primary)]' /> and passion in Faridabad, India.
+        Crafted with <FiCoffee className='inline-block text-[var(--primary)]' />{' '}
+        and passion in India.
       </p>
     </div>
   </footer>

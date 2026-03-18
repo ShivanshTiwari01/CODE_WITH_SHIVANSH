@@ -18,9 +18,12 @@ const NavBar = () => {
     <nav className='fixed w-full bg-opacity-80 backdrop-blur-md bg-[var(--background)] z-50 border-b border-[var(--gray-200)] shadow-sm'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center justify-between h-16'>
-          <span className='text-xl font-bold text-[var(--primary)]'>
-            Code with Shivansh
-          </span>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className='text-xl font-bold text-[var(--primary)] cursor-pointer'
+          >
+            Home
+          </button>
 
           <div className='flex items-center gap-4'>
             {/* Desktop Nav */}

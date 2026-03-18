@@ -79,15 +79,6 @@ const HeroSection = () => {
           </div>
         </motion.div>
 
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className='inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/30 text-sm font-medium text-indigo-100 mb-4 tracking-wide backdrop-blur-sm'
-        >
-          📍 NCR, India · Open to Remote
-        </motion.div> */}
-
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -103,7 +94,7 @@ const HeroSection = () => {
           transition={{ delay: 0.4, duration: 0.8 }}
           className='text-2xl md:text-3xl font-semibold text-cyan-200 mb-6'
         >
-          Senior Software Developer &amp; System Architect
+          Software Engineer &amp; System Architect
         </motion.p>
 
         <motion.p
@@ -116,9 +107,9 @@ const HeroSection = () => {
           <span className='font-semibold text-cyan-300'>
             scalable, production-grade systems
           </span>{' '}
-          end-to-end — distributed backends, AI-integrated apps, polished React
-          frontends, and automated CI/CD pipelines. Let&apos;s turn your idea
-          into a product. 🚀
+          end to end—ranging from distributed backends and AI-integrated
+          applications to polished React frontends and automated CI/CD
+          pipelines. Let’s turn your idea into a real product.
         </motion.p>
 
         <motion.div
