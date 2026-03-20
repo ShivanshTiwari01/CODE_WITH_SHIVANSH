@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { UAParser } from 'ua-parser-js';
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,7 +9,30 @@ export async function POST(request: NextRequest) {
       request.headers.get('cf-connecting-ip') ||
       request.headers.get('x-real-ip') ||
       'Unknown IP';
+
     const userAgent = request.headers.get('user-agent') || 'Unknown Device';
+
+    const parser = new UAParser(userAgent);
+    const result = parser.getResult();
+
+    const deviceDetails = {
+      browser: result.browser.name,
+      browser_version: result.browser.version,
+      os: result.os.name,
+      os_version: result.os.version,
+      device_type: result.device.type || 'desktop',
+      device_vendor: result.device.vendor || 'unknown',
+      device_model: result.device.model || 'unknown',
+    };
+
+    console.log(
+      'Tracking visit - IP:',
+      ip,
+      'User-Agent:',
+      userAgent,
+      'Device Details:',
+      deviceDetails,
+    );
 
     let locationInfo = 'Unknown Location';
     let locationIp = ip;
@@ -60,8 +84,8 @@ export async function POST(request: NextRequest) {
 
       const { error } = await supabase.from('visitor_logs').insert({
         ip: locationIp,
-        user_agent: userAgent,
         location: locationInfo,
+        device_details: deviceDetails,
         visited_at: visitedAt,
       });
 
