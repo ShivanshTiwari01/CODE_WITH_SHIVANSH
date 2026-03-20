@@ -10,8 +10,6 @@ export async function POST(request: NextRequest) {
       'Unknown IP';
     const userAgent = request.headers.get('user-agent') || 'Unknown Device';
 
-    console.log(ip);
-
     let locationInfo = 'Unknown Location';
     let locationIp = ip;
 
@@ -32,12 +30,13 @@ export async function POST(request: NextRequest) {
           requestOptions,
         );
 
-        console.log(locationResponse);
-
         if (locationResponse.ok) {
           const locationData = await locationResponse.json();
           locationInfo = JSON.stringify(locationData.location);
           locationIp = locationData.ip;
+
+          console.log('Location fetched successfully:', locationInfo);
+          console.log('IP used for location fetch:', locationIp);
         }
       }
     } catch (locationErr) {
@@ -45,7 +44,8 @@ export async function POST(request: NextRequest) {
     }
 
     if (process.env.DATABASE_URL) {
-      // 60s timeout: Neon free tier can take up to ~15-20s to wake from idle sleep
+      console.log('Database URL found:', process.env.DATABASE_URL);
+      console.log('Connecting to database to log visit...');
       const sql = neon(process.env.DATABASE_URL, {
         fetchOptions: { signal: AbortSignal.timeout(60000) },
       });
