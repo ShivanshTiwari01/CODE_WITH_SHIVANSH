@@ -34,9 +34,6 @@ export async function POST(request: NextRequest) {
           const locationData = await locationResponse.json();
           locationInfo = JSON.stringify(locationData.location);
           locationIp = locationData.ip;
-
-          console.log('Location fetched successfully:', locationInfo);
-          console.log('IP used for location fetch:', locationIp);
         }
       }
     } catch (locationErr) {
@@ -49,7 +46,6 @@ export async function POST(request: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
     if (supabaseUrl && supabaseKey) {
-      console.log('Connecting to Supabase to log visit...');
       const supabase = createClient(supabaseUrl, supabaseKey);
 
       let visitedAt = new Date().toISOString();
