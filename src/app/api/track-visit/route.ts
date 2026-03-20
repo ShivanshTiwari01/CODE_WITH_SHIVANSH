@@ -45,7 +45,10 @@ export async function POST(request: NextRequest) {
     }
 
     if (process.env.DATABASE_URL) {
-      const sql = neon(process.env.DATABASE_URL);
+      // 60s timeout: Neon free tier can take up to ~15-20s to wake from idle sleep
+      const sql = neon(process.env.DATABASE_URL, {
+        fetchOptions: { signal: AbortSignal.timeout(60000) },
+      });
 
       await sql`
         CREATE TABLE IF NOT EXISTS visitor_logs (
