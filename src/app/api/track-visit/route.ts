@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { neon } from '@neondatabase/serverless';
+import { createClient } from '@supabase/supabase-js';
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,22 +43,14 @@ export async function POST(request: NextRequest) {
       console.error('Location fetch failed (ignored):', locationErr);
     }
 
-    if (process.env.DATABASE_URL) {
-      console.log('Database URL found:', process.env.DATABASE_URL);
-      console.log('Connecting to database to log visit...');
-      const sql = neon(process.env.DATABASE_URL, {
-        fetchOptions: { signal: AbortSignal.timeout(60000) },
-      });
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
-      await sql`
-        CREATE TABLE IF NOT EXISTS visitor_logs (
-          id SERIAL PRIMARY KEY,
-          ip VARCHAR(255),
-          user_agent TEXT,
-          location TEXT,
-          visited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-      `;
+    if (supabaseUrl && supabaseKey) {
+      console.log('Connecting to Supabase to log visit...');
+      const supabase = createClient(supabaseUrl, supabaseKey);
 
       let visitedAt = new Date().toISOString();
       try {
@@ -70,10 +62,16 @@ export async function POST(request: NextRequest) {
         // Ignored if locationInfo is not valid JSON
       }
 
-      await sql`
-        INSERT INTO visitor_logs (ip, user_agent, location, visited_at)
-        VALUES (${locationIp}, ${userAgent}, ${locationInfo}, ${visitedAt})
-      `;
+      const { error } = await supabase.from('visitor_logs').insert({
+        ip: locationIp,
+        user_agent: userAgent,
+        location: locationInfo,
+        visited_at: visitedAt,
+      });
+
+      if (error) {
+        console.error('Supabase insert error:', error);
+      }
     }
 
     return NextResponse.json(
