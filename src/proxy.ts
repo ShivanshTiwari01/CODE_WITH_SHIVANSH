@@ -8,7 +8,6 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
 
       const trackingPromise = fetch(apiUrl.toString(), {
         method: 'POST',
-        headers: request.headers,
       }).catch((error) => {
         console.error('Proxy tracking error (ignored):', error);
       });
